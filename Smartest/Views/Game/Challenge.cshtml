@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Challenge";
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#challenge').click(createChallenge);
+    });
+
+    function createChallenge() {
+
+        var nickname = $('#nickname').val();
+
+        var actionUrl = '@Url.Action("CreateChallenge", "Game")';
+
+
+        $.ajax({
+            cache: false,
+            url: actionUrl,
+            data : { challenger: nickname },
+            dataType: "json",
+            success: function (data) {
+                $("#createdBy").text(data);
+            }
+        });
+
+    }
+
+</script>
+
+
+    <h2>Find an Adversary</h2>
+
+    <div class="span6">
+        <fieldset>
+            <form id="thisForm" >
+                <div class="control-group">
+                    <label class="span2">
+    Nickname:
+                </label>
+                <input class="span3" type="text" id="nickname" name="nickname" />
+            </div>
+        </form>
+        <div class="offset4">
+            <button id="challenge" class="btn btn-primary" >
+                Challenge
+            </button>
+        </div>
+
+        <div>
+            <h2><label id="createdBy"></label></h2>
+            
+    </div>
+</fieldset>
+</div>
+
+
+
