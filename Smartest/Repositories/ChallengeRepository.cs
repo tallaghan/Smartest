@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Smartest.Repositories
 {
-    public class ChallengeRepository : Smartest.Repositories.IRepository<Challenge>
+    public class ChallengeRepository : IRepository<Challenge>, IChallengeRepository
     {
         private SmartestDbContext db = new SmartestDbContext();
 

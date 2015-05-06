@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Linq;
 namespace Smartest.Repositories
 {
     public interface IRepository<T>
     {
-        System.Linq.IQueryable<T> GetAll();
+        IQueryable<T> GetAll();
     }
 }

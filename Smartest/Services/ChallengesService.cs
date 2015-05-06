@@ -17,5 +17,11 @@ namespace Smartest.Services
             _challengesRepository = challengesRepository;
         }
 
+        public void CreateChallenge(string challenger)
+        {
+            _challengesRepository.CreateChallenge(challenger);
+
+        }
+
     }
 }
