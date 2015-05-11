@@ -9,10 +9,9 @@ namespace Smartest.Services
 {
     public class ChallengesService
     {
+        private IChallengeRepository _challengesRepository;
 
-        private IRepository<Challenge> _challengesRepository;
-
-        public ChallengesService(IRepository<Challenge> challengesRepository)
+        public ChallengesService(IChallengeRepository challengesRepository)
         {
             _challengesRepository = challengesRepository;
         }
@@ -20,7 +19,6 @@ namespace Smartest.Services
         public void CreateChallenge(string challenger)
         {
             _challengesRepository.CreateChallenge(challenger);
-
         }
 
     }

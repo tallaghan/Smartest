@@ -9,9 +9,9 @@ namespace Smartest.Services
 {
     public class GamesService
     {
-        private IRepository<Game> _gamesRepository;
+        private IGameRepository _gamesRepository;
 
-        public GamesService(IRepository<Game> gamesRepository)
+        public GamesService(IGameRepository gamesRepository)
         {
             _gamesRepository = gamesRepository;
         }

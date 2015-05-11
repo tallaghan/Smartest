@@ -253,7 +253,7 @@
     <Compile Include="Repositories\ChallengeRepository.cs" />
     <Compile Include="Repositories\GameRepository.cs" />
     <Compile Include="Repositories\IChallengeRepository.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\IGameRepository.cs" />
     <Compile Include="Services\ChallengesService.cs" />
     <Compile Include="Services\GamesService.cs" />
     <Compile Include="Startup.cs" />

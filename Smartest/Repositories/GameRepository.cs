@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Smartest.Repositories
 {
-    public class GameRepository : Smartest.Repositories.IRepository<Game>
+    public class GameRepository : IGameRepository
     {
         private SmartestDbContext db = new SmartestDbContext();
 
@@ -15,9 +15,9 @@ namespace Smartest.Repositories
             return db.Games.AsQueryable();
         }
 
-        public void CreateGame(string player1, string player2)
+        public void CreateGame( int challengeId, string opponent)
         {
-            db.Games.Add(new Game { Player1 = player1, Player2 = player2 });
+            db.Games.Add(new Game { ChallengeId = challengeId, Opponent = opponent });
             db.SaveChanges();
         }
 

@@ -35,11 +35,11 @@ namespace Smartest.App_Start
         public static void RegisterTypes(IUnityContainer container)
         {
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
-            container.LoadConfiguration();
+            //container.LoadConfiguration();
 
             // Register your types here
-            container.RegisterType<IRepository<Game>, GameRepository>();
-            container.RegisterType<IRepository<Challenge>, ChallengeRepository>();
+            container.RegisterType<IGameRepository, GameRepository>();
+            container.RegisterType<IChallengeRepository, ChallengeRepository>();
 
         }
     }

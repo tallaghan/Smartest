@@ -226,18 +226,30 @@ namespace Smartest.Data
     // POCO classes
 
     // Challenges
+    [GeneratedCodeAttribute("EF.Reverse.POCO.Generator", "2.12.3.0")]
     public class Challenge
     {
         public int Id { get; internal set; } // Id (Primary key)
         public string Challenger { get; set; } // Challenger
+
+        // Reverse navigation
+        public virtual ICollection<Game> Games { get; set; } // Games.FK_Games_Challenges
+        
+        public Challenge()
+        {
+            Games = new List<Game>();
+        }
     }
 
     // Games
     public class Game
     {
         public int Id { get; internal set; } // Id (Primary key)
-        public string Player1 { get; set; } // Player1
-        public string Player2 { get; set; } // Player2
+        public int ChallengeId { get; set; } // ChallengeId
+        public string Opponent { get; set; } // Opponent
+
+        // Foreign keys
+        public virtual Challenge Challenge { get; set; } // FK_Games_Challenges
     }
 
 
@@ -266,8 +278,11 @@ namespace Smartest.Data
             HasKey(x => x.Id);
 
             Property(x => x.Id).HasColumnName("Id").IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            Property(x => x.Player1).HasColumnName("Player1").IsRequired().HasMaxLength(255);
-            Property(x => x.Player2).HasColumnName("Player2").IsRequired().HasMaxLength(255);
+            Property(x => x.ChallengeId).HasColumnName("ChallengeId").IsRequired();
+            Property(x => x.Opponent).HasColumnName("Opponent").IsRequired().HasMaxLength(255);
+
+            // Foreign keys
+            HasRequired(a => a.Challenge).WithMany(b => b.Games).HasForeignKey(c => c.ChallengeId); // FK_Games_Challenges
         }
     }
 
