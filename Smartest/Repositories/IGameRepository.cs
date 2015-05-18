@@ -8,6 +8,6 @@ namespace Smartest.Repositories
     {
         IQueryable<Game> GetAll();
 
-        void CreateGame(string player1, string player2);
+        void CreateGame(int  challengeId, string opponent);
     }
 }
