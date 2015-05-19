@@ -231,6 +231,7 @@ namespace Smartest.Data
     {
         public int Id { get; internal set; } // Id (Primary key)
         public string Challenger { get; set; } // Challenger
+        public bool Active { get; set; } // Active
 
         // Reverse navigation
         public virtual ICollection<Game> Games { get; set; } // Games.FK_Games_Challenges
@@ -266,6 +267,7 @@ namespace Smartest.Data
 
             Property(x => x.Id).HasColumnName("Id").IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(x => x.Challenger).HasColumnName("Challenger").IsRequired().HasMaxLength(255);
+            Property(x => x.Active).HasColumnName("Active").IsRequired();
         }
     }
 

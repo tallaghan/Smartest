@@ -1,4 +1,5 @@
-﻿using Smartest.Services;
+﻿using Smartest.Data;
+using Smartest.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,22 @@ namespace Smartest.Controllers
             return Json(challenger, JsonRequestBehavior.AllowGet); 
 
         }
+
+        public JsonResult GetActiveChallenges()
+        {
+            IList<Challenge> challenges = _challengesService.GetAll().Where(x => x.Active == true).ToList();
+
+            return Json(challenges, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetCurrentChallenges()
+        {
+            _challengesService.GetCurrentChallenges();
+
+            return Json(challenger, JsonRequestBehavior.AllowGet);
+
+        }
+
 
     }
 }

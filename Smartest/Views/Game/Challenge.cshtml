@@ -17,8 +17,8 @@
         PopulateList();
 
         // Create a function that the hub can call back
-        rtime.client.notifyClients = function (employeeID, fullname, signedIn, signedOn) {
-            UpdateEmployee(employeeID, fullname, signedIn, signedOn);
+        rtime.client.notifyClients = function (challengeID, fullname, signedIn, signedOn) {
+            Updatechallenge(challengeID, fullname, signedIn, signedOn);
         };
 
         // Start the connection.
@@ -27,12 +27,12 @@
 
     });
 
-    function UpdateEmployee(employeeID, fullname, signedIn, signedOn) {
+    function Updatechallenge(challengeID, fullname, signedIn, signedOn) {
 
         var buttonText;
         var lastSignDate = ConvertDateToString(signedOn);
         var currentStatus;
-        var linkText = 'javascript:AcceptChallenge(' + employeeID + ');';
+        var linkText = 'javascript:AcceptChallenge(' + challengeID + ');';
 
         if (signedIn == false) {
             buttonText = 'Sign In';
@@ -48,23 +48,23 @@
 
         '<br></br><a href="' + linkText + '" class="btn btn-success btn-medium">' + buttonText + ' »</a></p>';
 
-        $("#employee_div_" + employeeID).html(divContent);
+        $("#challenge_div_" + challengeID).html(divContent);
 
-        rtime.server.notifyClients(employeeID, fullname, signedIn, signedOn);
+        rtime.server.notifyClients(challengeID, fullname, signedIn, signedOn);
     }
 
     function CreateChallenge(challenger) {
 
         var actionUrl = "@Url.Action("CreateChallenge", "Game")";
 
-        actionUrl = actionUrl + '/' + employeeID;
+        actionUrl = actionUrl + '/' + challengeID;
 
         $.ajax({
             cache: false,
             url: actionUrl,
             dataType: "json",
             success: function (data) {
-                UpdateEmployee(employeeID, data.FullName, data.LastSigningWasIn, data.LastSigning);
+                Updatechallenge(challengeID, data.FullName, data.LastSigningWasIn, data.LastSigning);
             }
         });
     }
@@ -73,9 +73,7 @@
 
         $('#challengesDiv').empty();
 
-        var actionUrl = "@Url.Action("GetActiveEmployees", "Home")";
-
-        actionUrl = actionUrl + '/' + empId;
+        var actionUrl = "@Url.Action("GetActiveChallenges", "Game")";
 
         $.ajax({
             cache: false,
@@ -86,40 +84,16 @@
 
                 $.each(items, function (index, item) {
 
-                    var lastSigningWasIn = item.LastSigningWasIn;
-                    var lastSigningWasToday = item.LastSigningWasToday;
-                    var lastSignDate = '';
-                    var buttonText;
-                    var employeeID = item.EmployeeID;
+                    var challenger = item.Challenger;
+                    var challengeId = item.Id;
+                    var buttonText = 'Accept';
 
-                    var linkText = 'javascript:CreateSigning(' + employeeID + ');';
+                    var linkText = 'javascript:AcceptChallenge(' + challengeId + ');';
                     var currentStatus;
 
-                    if (lastSigningWasIn == null || lastSigningWasIn == false) {
-                        lastSigningWasIn = false;
-                        buttonText = 'Sign In';
-                    } else {
-                        if (lastSigningWasToday == true) {
-                            buttonText = 'Sign Out';
-                        } else {
-                            buttonText = 'Sign In';
-                        }
-                    }
+                    var divToAppend = '<div id="challenge_div_' + challengeId + '" class="col-sm-6 col-md-4 col-lg-3">' +
 
-                    if (item.LastSigning != null) {
-                        lastSignDate = ConvertDateToString(item.LastSigning);
-                        if (lastSigningWasIn == true) {
-                            currentStatus = 'Signed In On';
-                        } else {
-                            currentStatus = 'Signed Out On';
-                        }
-                    } else {
-                        currentStatus = "Never Signed In";
-                    }
-
-                    var divToAppend = '<div id="employee_div_' + employeeID + '" class="col-sm-6 col-md-4 col-lg-3">' +
-
-                                    '<p><h2>' + item.FullName + '</h2>' + currentStatus +
+                                    '<p><h2>' + challenger + '</h2>' + 
 
                                     '<br></br>' + lastSignDate +
 
