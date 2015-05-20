@@ -16,48 +16,46 @@
 
         PopulateList();
 
-        // Create a function that the hub can call back
-        rtime.client.notifyClients = function (challengeID, fullname, signedIn, signedOn) {
-            Updatechallenge(challengeID, fullname, signedIn, signedOn);
-        };
+        //// Create a function that the hub can call back
+        //rtime.client.notifyClients = function (challengeID, fullname, signedIn, signedOn) {
+        //    UpdateChallenge(challengeID, fullname, signedIn, signedOn);
+        //};
 
-        // Start the connection.
-        $.connection.hub.start().done(function () {
-        });
+        //// Start the connection.
+        //$.connection.hub.start().done(function () {
+        //});
 
     });
 
-    function Updatechallenge(challengeID, fullname, signedIn, signedOn) {
+    //function Updatechallenge(challengeID, fullname, signedIn, signedOn) {
 
-        var buttonText;
-        var lastSignDate = ConvertDateToString(signedOn);
-        var currentStatus;
-        var linkText = 'javascript:AcceptChallenge(' + challengeID + ');';
+    //    var buttonText;
+    //    var lastSignDate = ConvertDateToString(signedOn);
+    //    var currentStatus;
+    //    var linkText = 'javascript:AcceptChallenge(' + challengeID + ');';
 
-        if (signedIn == false) {
-            buttonText = 'Sign In';
-            currentStatus = 'Signed Out On';
-        } else {
-            buttonText = 'Sign Out';
-            currentStatus = 'Signed In On';
-        }
+    //    if (signedIn == false) {
+    //        buttonText = 'Sign In';
+    //        currentStatus = 'Signed Out On';
+    //    } else {
+    //        buttonText = 'Sign Out';
+    //        currentStatus = 'Signed In On';
+    //    }
 
-        var divContent = '<p><h2>' + fullname + '</h2>' + currentStatus +
+    //    var divContent = '<p><h2>' + fullname + '</h2>' + currentStatus +
 
-        '<br></br>' + lastSignDate +
+    //    '<br></br>' + lastSignDate +
 
-        '<br></br><a href="' + linkText + '" class="btn btn-success btn-medium">' + buttonText + ' »</a></p>';
+    //    '<br></br><a href="' + linkText + '" class="btn btn-success btn-medium">' + buttonText + ' »</a></p>';
 
-        $("#challenge_div_" + challengeID).html(divContent);
+    //    $("#challenge_div_" + challengeID).html(divContent);
 
-        rtime.server.notifyClients(challengeID, fullname, signedIn, signedOn);
-    }
+    //    rtime.server.notifyClients(challengeID, fullname, signedIn, signedOn);
+    //}
 
     function CreateChallenge(challenger) {
 
         var actionUrl = "@Url.Action("CreateChallenge", "Game")";
-
-        actionUrl = actionUrl + '/' + challengeID;
 
         $.ajax({
             cache: false,
@@ -69,7 +67,28 @@
         });
     }
 
-    function PopulateList(empId) {
+    
+    function AcceptChallenge(challengeId, opponent) {
+
+        var actionUrl = "@Url.Action("AcceptChallenge", "Game")";
+
+        actionUrl = actionUrl + '/' + challengeID;
+
+        $.ajax({
+            cache: false,
+            url: actionUrl,
+            data: {
+                challengeId: challengeId,
+                opponent: opponent
+            },
+            dataType: "json",
+            success: function (data) {
+                //Updatechallenge(challengeID, data.FullName, data.LastSigningWasIn, data.LastSigning);
+            }
+        });
+    }
+
+    function PopulateList() {
 
         $('#challengesDiv').empty();
 
@@ -94,8 +113,6 @@
                     var divToAppend = '<div id="challenge_div_' + challengeId + '" class="col-sm-6 col-md-4 col-lg-3">' +
 
                                     '<p><h2>' + challenger + '</h2>' + 
-
-                                    '<br></br>' + lastSignDate +
 
                                     '<br></br><a href="' + linkText + '" class="btn btn-success btn-medium">' + buttonText + ' »</a></p>' +
 

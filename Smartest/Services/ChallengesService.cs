@@ -20,11 +20,15 @@ namespace Smartest.Services
         {
             _challengesRepository.CreateChallenge(challenger);
         }
-
-
+        
         public IList<Challenge> GetAll()
         {
             return _challengesRepository.GetAll().ToList();
+        }
+
+        public void AcceptChallenge(int challengeId, string opponent)
+        {
+            _challengesRepository.AcceptChallenge(challengeId, opponent);
         }
     }
 }

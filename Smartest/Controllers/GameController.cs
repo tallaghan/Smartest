@@ -27,7 +27,6 @@ namespace Smartest.Controllers
 
         public ActionResult CreateChallenge(string challenger)
         {
-
             _challengesService.CreateChallenge(challenger);
 
             return Json(challenger, JsonRequestBehavior.AllowGet); 
@@ -41,11 +40,12 @@ namespace Smartest.Controllers
             return Json(challenges, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetCurrentChallenges()
-        {
-            _challengesService.GetCurrentChallenges();
 
-            return Json(challenger, JsonRequestBehavior.AllowGet);
+        public ActionResult AcceptChallenge(int challengeId, string opponent)
+        {
+            _challengesService.AcceptChallenge(challengeId, opponent);
+
+            return Json(challengeId, JsonRequestBehavior.AllowGet);
 
         }
 

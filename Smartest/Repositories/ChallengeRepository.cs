@@ -21,6 +21,17 @@ namespace Smartest.Repositories
             db.SaveChanges();
         }
 
+        public void AcceptChallenge(int challengeId, string opponent)
+        {
+            db.Games.Add(new Game { ChallengeId = challengeId, Opponent = opponent });
+
+            Challenge thisChallenge = db.Challenges.Where(x => x.Id == challengeId).FirstOrDefault();
+
+            thisChallenge.Active = false;
+
+            db.SaveChanges();
+        }
+
 
     }
 }
