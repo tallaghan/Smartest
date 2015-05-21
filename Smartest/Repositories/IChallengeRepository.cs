@@ -11,6 +11,8 @@ namespace Smartest.Repositories
     {
         void CreateChallenge(string challenger);
 
+        void AcceptChallenge(int challengeId, string opponent);
+
         IQueryable<Challenge> GetAll();
     }
 }

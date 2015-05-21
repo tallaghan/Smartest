@@ -68,11 +68,12 @@
     }
 
     
-    function AcceptChallenge(challengeId, opponent) {
+    function AcceptChallenge(challengeId) {
 
         var actionUrl = "@Url.Action("AcceptChallenge", "Game")";
+        var opponent = 'captainleaf'
 
-        actionUrl = actionUrl + '/' + challengeID;
+        actionUrl = actionUrl + '/' + challengeId;
 
         $.ajax({
             cache: false,
@@ -83,7 +84,7 @@
             },
             dataType: "json",
             success: function (data) {
-                //Updatechallenge(challengeID, data.FullName, data.LastSigningWasIn, data.LastSigning);
+                PopulateList();
             }
         });
     }

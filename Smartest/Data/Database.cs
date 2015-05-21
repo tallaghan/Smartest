@@ -231,6 +231,7 @@ namespace Smartest.Data
     {
         public int Id { get; internal set; } // Id (Primary key)
         public string Challenger { get; set; } // Challenger
+        public string ConnectionId { get; set; } // ConnectionId
         public bool Active { get; set; } // Active
 
         // Reverse navigation
@@ -267,6 +268,7 @@ namespace Smartest.Data
 
             Property(x => x.Id).HasColumnName("Id").IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(x => x.Challenger).HasColumnName("Challenger").IsRequired().HasMaxLength(255);
+            Property(x => x.ConnectionId).HasColumnName("ConnectionId").IsOptional().HasMaxLength(255);
             Property(x => x.Active).HasColumnName("Active").IsRequired();
         }
     }
