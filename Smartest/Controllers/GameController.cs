@@ -27,7 +27,9 @@ namespace Smartest.Controllers
 
         public ActionResult CreateChallenge(string challenger)
         {
-            _challengesService.CreateChallenge(challenger);
+            string connectionId = Context.ConnectionId;
+
+            _challengesService.CreateChallenge(challenger, connectionId);
 
             return Json(challenger, JsonRequestBehavior.AllowGet); 
 

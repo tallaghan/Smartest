@@ -16,53 +16,36 @@
 
         PopulateList();
 
-        //// Create a function that the hub can call back
-        //rtime.client.notifyClients = function (challengeID, fullname, signedIn, signedOn) {
-        //    UpdateChallenge(challengeID, fullname, signedIn, signedOn);
-        //};
+        // Create a function that the hub can call back
+        rtime.client.challengeAccepted = function (connectionID, challengeID, opponent) {
+            ChallengeAccepted(connectionID, challengeID, opponent);
+        };
 
-        //// Start the connection.
-        //$.connection.hub.start().done(function () {
-        //});
+        // Start the connection.
+        $.connection.hub.start().done(function () {
+        });
 
     });
 
-    //function Updatechallenge(challengeID, fullname, signedIn, signedOn) {
+    function ChallengeAccepted(connectionID, challengeID, opponent) {
 
-    //    var buttonText;
-    //    var lastSignDate = ConvertDateToString(signedOn);
-    //    var currentStatus;
-    //    var linkText = 'javascript:AcceptChallenge(' + challengeID + ');';
 
-    //    if (signedIn == false) {
-    //        buttonText = 'Sign In';
-    //        currentStatus = 'Signed Out On';
-    //    } else {
-    //        buttonText = 'Sign Out';
-    //        currentStatus = 'Signed In On';
-    //    }
+    }
 
-    //    var divContent = '<p><h2>' + fullname + '</h2>' + currentStatus +
-
-    //    '<br></br>' + lastSignDate +
-
-    //    '<br></br><a href="' + linkText + '" class="btn btn-success btn-medium">' + buttonText + ' »</a></p>';
-
-    //    $("#challenge_div_" + challengeID).html(divContent);
-
-    //    rtime.server.notifyClients(challengeID, fullname, signedIn, signedOn);
-    //}
-
-    function CreateChallenge(challenger) {
+    function CreateChallenge() {
 
         var actionUrl = "@Url.Action("CreateChallenge", "Game")";
+        var challenger = "mduffy";
 
         $.ajax({
             cache: false,
             url: actionUrl,
+            data: {
+                challenger: challenger
+                },
             dataType: "json",
             success: function (data) {
-                Updatechallenge(challengeID, data.FullName, data.LastSigningWasIn, data.LastSigning);
+                PopulateList();
             }
         });
     }
@@ -134,6 +117,7 @@
     <div class="jumbotron">
         <h1>Who's The Smartest</h1>
         <p>Accept one of the challenges below or create a new challenge</p>
+        <a href="javascript:CreateChallenge();" class="btn btn-success btn-medium">Create Challenge</a>        
     </div>
     <div id="challengesDiv" class="row">
     </div>
