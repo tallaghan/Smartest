@@ -15,15 +15,15 @@ namespace Smartest.Repositories
             return db.Challenges.AsQueryable();
         }
 
-        public void CreateChallenge(string challenger)
+        public void CreateChallenge(string challenger, string connectionId)
         {
-            db.Challenges.Add(new Challenge { Challenger = challenger });
+            db.Challenges.Add(new Challenge { Challenger = challenger, ConnectionId = connectionId });
             db.SaveChanges();
         }
 
-        public void AcceptChallenge(int challengeId, string opponent)
+        public void AcceptChallenge(int challengeId, string opponent, string connectionIdOpponent)
         {
-            db.Games.Add(new Game { ChallengeId = challengeId, Opponent = opponent });
+            db.Games.Add(new Game { ChallengeId = challengeId, Opponent = opponent, ConnectionIdOpponent = connectionIdOpponent });
 
             Challenge thisChallenge = db.Challenges.Where(x => x.Id == challengeId).FirstOrDefault();
 

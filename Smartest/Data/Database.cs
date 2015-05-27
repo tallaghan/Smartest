@@ -249,6 +249,7 @@ namespace Smartest.Data
         public int Id { get; internal set; } // Id (Primary key)
         public int ChallengeId { get; set; } // ChallengeId
         public string Opponent { get; set; } // Opponent
+        public string ConnectionIdOpponent { get; set; } // ConnectionIdOpponent
 
         // Foreign keys
         public virtual Challenge Challenge { get; set; } // FK_Games_Challenges
@@ -284,6 +285,7 @@ namespace Smartest.Data
             Property(x => x.Id).HasColumnName("Id").IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(x => x.ChallengeId).HasColumnName("ChallengeId").IsRequired();
             Property(x => x.Opponent).HasColumnName("Opponent").IsRequired().HasMaxLength(255);
+            Property(x => x.ConnectionIdOpponent).HasColumnName("ConnectionIdOpponent").IsRequired().HasMaxLength(255);
 
             // Foreign keys
             HasRequired(a => a.Challenge).WithMany(b => b.Games).HasForeignKey(c => c.ChallengeId); // FK_Games_Challenges

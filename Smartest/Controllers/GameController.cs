@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace Smartest.Controllers
 {
     public class GameController : Controller
@@ -25,10 +26,8 @@ namespace Smartest.Controllers
             return View();
         }
 
-        public ActionResult CreateChallenge(string challenger)
+        public ActionResult CreateChallenge(string challenger, string connectionId)
         {
-            string connectionId = Context.ConnectionId;
-
             _challengesService.CreateChallenge(challenger, connectionId);
 
             return Json(challenger, JsonRequestBehavior.AllowGet); 
@@ -43,9 +42,9 @@ namespace Smartest.Controllers
         }
 
 
-        public ActionResult AcceptChallenge(int challengeId, string opponent)
+        public ActionResult AcceptChallenge(int challengeId, string opponent, string connectionIdOpponent)
         {
-            _challengesService.AcceptChallenge(challengeId, opponent);
+            _challengesService.AcceptChallenge(challengeId, opponent, connectionIdOpponent);
 
             return Json(challengeId, JsonRequestBehavior.AllowGet);
 

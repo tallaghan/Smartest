@@ -16,9 +16,9 @@ namespace Smartest.Services
             _challengesRepository = challengesRepository;
         }
 
-        public void CreateChallenge(string challenger)
+        public void CreateChallenge(string challenger, string connectionId)
         {
-            _challengesRepository.CreateChallenge(challenger);
+            _challengesRepository.CreateChallenge(challenger, connectionId);
         }
         
         public IList<Challenge> GetAll()
@@ -26,9 +26,9 @@ namespace Smartest.Services
             return _challengesRepository.GetAll().ToList();
         }
 
-        public void AcceptChallenge(int challengeId, string opponent)
+        public void AcceptChallenge(int challengeId, string opponent, string connectionIdOpponent)
         {
-            _challengesRepository.AcceptChallenge(challengeId, opponent);
+            _challengesRepository.AcceptChallenge(challengeId, opponent, connectionIdOpponent);
         }
     }
 }

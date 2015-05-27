@@ -9,9 +9,9 @@ namespace Smartest.Repositories
 {
     public interface IChallengeRepository
     {
-        void CreateChallenge(string challenger);
+        void CreateChallenge(string challenger, string connectionId);
 
-        void AcceptChallenge(int challengeId, string opponent);
+        void AcceptChallenge(int challengeId, string opponent, string connectionIdOpponent);
 
         IQueryable<Challenge> GetAll();
     }

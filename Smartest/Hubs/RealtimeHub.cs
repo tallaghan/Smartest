@@ -4,14 +4,15 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 
-
 namespace Smartest.Hubs
 {
     public class RealtimeHub : Hub
     {
-        public void ChallengeAccepted(string opponent, string connectionID)
+        public void ChallengeAccepted(int challengeID, string opponent)
         {
-            Clients.Client(connectionID).ChallengeAccepted(opponent);
+            string connectionId = Context.ConnectionId;
+
+            Clients.Client(connectionId).ChallengeAccepted(challengeID, opponent);
         }
     }
 }

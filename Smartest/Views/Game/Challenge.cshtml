@@ -17,8 +17,8 @@
         PopulateList();
 
         // Create a function that the hub can call back
-        rtime.client.challengeAccepted = function (connectionID, challengeID, opponent) {
-            ChallengeAccepted(connectionID, challengeID, opponent);
+        rtime.client.challengeAccepted = function (challengeID, opponent) {
+            ChallengeAccepted(challengeID, opponent);
         };
 
         // Start the connection.
@@ -27,7 +27,7 @@
 
     });
 
-    function ChallengeAccepted(connectionID, challengeID, opponent) {
+    function ChallengeAccepted(challengeID, opponent) {
 
 
     }
@@ -41,7 +41,8 @@
             cache: false,
             url: actionUrl,
             data: {
-                challenger: challenger
+                challenger: challenger,
+                connectionId: $.connection.hub.id
                 },
             dataType: "json",
             success: function (data) {
