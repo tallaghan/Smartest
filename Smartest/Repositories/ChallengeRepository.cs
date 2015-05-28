@@ -17,7 +17,7 @@ namespace Smartest.Repositories
 
         public void CreateChallenge(string challenger, string connectionId)
         {
-            db.Challenges.Add(new Challenge { Challenger = challenger, ConnectionId = connectionId });
+            db.Challenges.Add(new Challenge { Challenger = challenger, ConnectionId = connectionId, Active = true });
             db.SaveChanges();
         }
 

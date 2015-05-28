@@ -29,7 +29,8 @@
 
     function ChallengeAccepted(challengeID, opponent) {
 
-
+        $("#feedbackDiv").empty();
+        $("#feedbackDiv").append("<p>Challenge Accepted by " + opponent + "</p>");
     }
 
     function CreateChallenge() {
@@ -64,10 +65,12 @@
             url: actionUrl,
             data: {
                 challengeId: challengeId,
-                opponent: opponent
+                opponent: opponent,
+                connectionIdOpponent: $.connection.hub.id
             },
             dataType: "json",
             success: function (data) {
+                $.connection.realtimeHub.server.challengeAccepted(challengeId, opponent);
                 PopulateList();
             }
         });
@@ -119,6 +122,9 @@
         <h1>Who's The Smartest</h1>
         <p>Accept one of the challenges below or create a new challenge</p>
         <a href="javascript:CreateChallenge();" class="btn btn-success btn-medium">Create Challenge</a>        
+        <div id="feedbackDiv">
+
+        </div>
     </div>
     <div id="challengesDiv" class="row">
     </div>
