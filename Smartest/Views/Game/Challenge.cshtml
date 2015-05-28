@@ -57,7 +57,9 @@
 
         var actionUrl = "@Url.Action("AcceptChallenge", "Game")";
         var opponent = 'captainleaf'
-
+        var connectionIdOpponent = $.connection.hub.id;
+        var connectionIdChallenger = $("#connection_challenge_" + challengeId).val();
+                
         actionUrl = actionUrl + '/' + challengeId;
 
         $.ajax({
@@ -66,11 +68,11 @@
             data: {
                 challengeId: challengeId,
                 opponent: opponent,
-                connectionIdOpponent: $.connection.hub.id
+                connectionIdOpponent: connectionIdOpponent
             },
             dataType: "json",
             success: function (data) {
-                $.connection.realtimeHub.server.challengeAccepted(challengeId, opponent);
+                $.connection.realtimeHub.server.challengeAccepted(challengeId, opponent, connectionIdChallenger);
                 PopulateList();
             }
         });
@@ -93,6 +95,8 @@
 
                     var challenger = item.Challenger;
                     var challengeId = item.Id;
+                    var connectionId = item.ConnectionId;
+
                     var buttonText = 'Accept';
 
                     var linkText = 'javascript:AcceptChallenge(' + challengeId + ');';
@@ -100,8 +104,10 @@
 
                     var divToAppend = '<div id="challenge_div_' + challengeId + '" class="col-sm-6 col-md-4 col-lg-3">' +
 
-                                    '<p><h2>' + challenger + '</h2>' + 
+                                    '<p><h2>' + challenger + '</h2>' +
 
+                                    '<p><h3 id=connection_challenge_' + challengeId + '>' + connectionId + '</h3></p>' +
+                                    
                                     '<br></br><a href="' + linkText + '" class="btn btn-success btn-medium">' + buttonText + ' »</a></p>' +
 
                                     '</div>';
