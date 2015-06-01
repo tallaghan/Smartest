@@ -34,6 +34,19 @@ namespace Smartest.Controllers
 
         }
 
+        public ActionResult StartGame(int challengeId)
+        {
+
+            return RedirectToAction("Game", challengeId);
+        }
+
+        public ActionResult Game(int challengeId)
+        {
+            var model = _gamesService.GetAll().Where(x => x.Challenge.Id == challengeId).FirstOrDefault();
+            
+            return View("Game", Json(model));
+        }
+
         public JsonResult GetActiveChallenges()
         {
             IList<Challenge> challenges = _challengesService.GetAll().Where(x => x.Active == true).ToList();
@@ -46,6 +59,7 @@ namespace Smartest.Controllers
         {
             _challengesService.AcceptChallenge(challengeId, opponent, connectionIdOpponent);
 
+            
             return Json(challengeId, JsonRequestBehavior.AllowGet);
 
         }

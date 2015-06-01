@@ -31,6 +31,23 @@
 
         $("#feedbackDiv").empty();
         $("#feedbackDiv").append("<p>Challenge Accepted by " + opponent + "</p>");
+
+        setTimeout(StartGame(), 2000);
+
+    }
+
+    function StartGame() {
+
+        var actionUrl = "@Url.Action("StartGame", "Game")";
+
+        $.ajax({
+            cache: false,
+            url: actionUrl,
+            data: {
+                challengeId: challengeID
+            },
+            dataType: "json"
+        });
     }
 
     function CreateChallenge() {
@@ -59,7 +76,7 @@
         var opponent = 'captainleaf'
         var connectionIdOpponent = $.connection.hub.id;
         var connectionIdChallenger = $("#connection_challenge_" + challengeId).val();
-                
+
         actionUrl = actionUrl + '/' + challengeId;
 
         $.ajax({
@@ -106,7 +123,7 @@
 
                                     '<p><h2>' + challenger + '</h2>' +
 
-                                    '<p><h3 id=connection_challenge_' + challengeId + '>' + connectionId + '</h3></p>' +
+                                    '<p><input type="hidden" id=connection_challenge_' + challengeId + ' value="' + connectionId + '" /></p>' +
                                     
                                     '<br></br><a href="' + linkText + '" class="btn btn-success btn-medium">' + buttonText + ' »</a></p>' +
 

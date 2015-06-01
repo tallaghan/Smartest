@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Game";
+}
+<script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+<script src="@Url.Content("~/signalr/hubs")"></script>
+
+<script type="text/javascript">
+
+    // Reference the auto-generated proxy for the hub.
+    var rtime = $.connection.realtimeHub;
+    var currentGame = @Model;
+
+    $(function () {
+
+        $.ajaxSettings.traditional = true;
+        $.ajaxSetup({ cache: false });
+
+        //PopulateList();
+
+        //// Create a function that the hub can call back
+        //rtime.client.challengeAccepted = function (challengeID, opponent) {
+        //    ChallengeAccepted(challengeID, opponent);
+        //};
+
+        Countdown(10);
+
+        // Start the connection.
+        $.connection.hub.start().done(function () {
+        });
+
+    });
+
+    function Countdown(fromValue) {
+
+        var i = fromValue;
+
+        $('#countdownDiv').empty();
+       
+        var toAppend = '<p><h2>Game Starting In ' + i + ' seconds</h2>';
+
+        $('#countdownDiv').append(toAppend);
+
+        i--;
+
+        if (i > 0) {
+            setTimeout(Countdown(i), 1000);  
+        }
+
+    }
+
+</script>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Game About To Start</h1>  
+        <div id="countdownDiv">
+
+        </div>
+    </div>
+    <div id="gameDiv" class="row">
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-12">
+            <footer>
+                <p>© copyright 2015 mtech ltd</p>
+            </footer>
+        </div>
+    </div>
+</div>

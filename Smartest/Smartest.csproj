@@ -407,6 +407,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Game\Challenge.cshtml" />
+    <Content Include="Views\Game\Game.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -16,6 +16,10 @@ namespace Smartest.Services
             _gamesRepository = gamesRepository;
         }
 
+        public IList<Game> GetAll()
+        {
+            return _gamesRepository.GetAll().ToList();
+        }
 
     }
 }
