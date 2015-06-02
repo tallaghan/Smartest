@@ -34,11 +34,16 @@ namespace Smartest.Controllers
 
         }
 
+        public ActionResult Game()
+        {
+            return View();
+        }
+
         public ActionResult StartGame(int challengeId)
         {
             var model = _gamesService.GetAll().Where(x => x.Challenge.Id == challengeId).FirstOrDefault();
 
-            return View("Game", Json(model));
+            return View("Game", model);
         }
 
 

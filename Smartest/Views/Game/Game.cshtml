@@ -1,8 +1,8 @@
 ﻿@{
     ViewBag.Title = "Game";
 }
-<script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
-<script src="@Url.Content("~/signalr/hubs")"></script>
+@*<script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+<script src="@Url.Content("~/signalr/hubs")"></script>*@
 
 <script type="text/javascript">
 
@@ -12,7 +12,7 @@
 
     $(function () {
 
-        alert('HERE');
+        //alert('HERE');
 
         $.ajaxSettings.traditional = true;
         $.ajaxSetup({ cache: false });
@@ -26,9 +26,9 @@
 
         Countdown(10);
 
-        // Start the connection.
-        $.connection.hub.start().done(function () {
-        });
+        //// Start the connection.
+        //$.connection.hub.start().done(function () {
+        //});
 
     });
 
@@ -36,16 +36,18 @@
 
         var i = fromValue;
 
+        //alert(i);
+
         $('#countdownDiv').empty();
        
-        var toAppend = '<p><h2>Game Starting In ' + i + ' seconds</h2>';
+        var toAppend = '<p><h2>Game Starting In ' + i + ' seconds</h2></p>';
 
         $('#countdownDiv').append(toAppend);
 
         i--;
 
         if (i > 0) {
-            setTimeout(Countdown(i), 1000);  
+            setTimeout(Countdown(i), 1000000);  
         }
 
     }
