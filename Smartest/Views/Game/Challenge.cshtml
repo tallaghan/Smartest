@@ -32,11 +32,11 @@
         $("#feedbackDiv").empty();
         $("#feedbackDiv").append("<p>Challenge Accepted by " + opponent + "</p>");
 
-        setTimeout(StartGame(), 2000);
+        setTimeout(StartGame(challengeID), 2000);
 
     }
 
-    function StartGame() {
+    function StartGame(challengeID) {
 
         var actionUrl = "@Url.Action("StartGame", "Game")";
 
