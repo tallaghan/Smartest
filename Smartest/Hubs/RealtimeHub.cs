@@ -8,9 +8,17 @@ namespace Smartest.Hubs
 {
     public class RealtimeHub : Hub
     {
-        public void ChallengeAccepted(int challengeID, string opponent, string connectionIdOpponent)
+        public void ChallengeAccepted(int challengeID, string opponent, string connectionIdChallenger)
         {
-            Clients.Client(connectionIdOpponent).ChallengeAccepted(challengeID, opponent);
+            string connectionIdOpponent = Context.ConnectionId;
+
+            Clients.Client(connectionIdChallenger).ChallengeAccepted(challengeID, opponent, connectionIdOpponent);
         }
+
+        public void CountdownToGame(int countdownFrom, string connectionIdOpponent)
+        {
+            Clients.Client(connectionIdOpponent).CountdownToGame(countdownFrom);
+        }
+
     }
 }

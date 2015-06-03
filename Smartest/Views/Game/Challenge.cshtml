@@ -17,8 +17,12 @@
         PopulateList();
 
         // Create a function that the hub can call back
-        rtime.client.challengeAccepted = function (challengeID, opponent) {
-            ChallengeAccepted(challengeID, opponent);
+        rtime.client.challengeAccepted = function (challengeID, opponent, connectionIdOpponent) {
+            ChallengeAccepted(challengeID, opponent, connectionIdOpponent);
+        };
+
+        rtime.client.countdownToGame = function (countdownFrom) {
+            Countdown(countdownFrom);
         };
 
         // Start the connection.
@@ -27,27 +31,38 @@
 
     });
 
-    function ChallengeAccepted(challengeID, opponent) {
+    function ChallengeAccepted(challengeID, opponent, connectionIdOpponent) {
 
         $("#feedbackDiv").empty();
         $("#feedbackDiv").append("<p>Challenge Accepted by " + opponent + "</p>");
 
-        setTimeout(StartGame(challengeID), 2000);
+        setTimeout(StartGame(challengeID, connectionIdOpponent), 2000);
 
     }
 
-    function StartGame(challengeID) {
+    function Countdown(fromValue) {
 
-        var actionUrl = "@Url.Action("StartGame", "Game")";
+        var i = fromValue;
 
-        $.ajax({
-            cache: false,
-            url: actionUrl,
-            data: {
-                challengeId: challengeID
-            },
-            dataType: "json"
-        });
+        //$('#feedbackDiv').empty();
+
+        var toAppend = '<p><h2>Game Starting In ' + i + ' seconds</h2></p>';
+
+        $('#feedbackDiv').append(toAppend);
+
+        i--;
+
+        if (i > 0) {
+            setTimeout(Countdown(i), 100000);
+        }
+
+    }
+
+    function StartGame(challengeID, connectionIdOpponent) {
+
+        $.connection.realtimeHub.server.countdownToGame(10, connectionIdOpponent);
+
+        Countdown(10);
     }
 
     function CreateChallenge() {
