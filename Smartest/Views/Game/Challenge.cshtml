@@ -36,7 +36,7 @@
         $("#feedbackDiv").empty();
         $("#feedbackDiv").append("<p>Challenge Accepted by " + opponent + "</p>");
 
-        setTimeout(StartGame(challengeID, connectionIdOpponent), 2000);
+        setTimeout(StartGame, 2000, challengeID, connectionIdOpponent);
 
     }
 
@@ -44,7 +44,7 @@
 
         var i = fromValue;
 
-        //$('#feedbackDiv').empty();
+        $('#feedbackDiv').empty();
 
         var toAppend = '<p><h2>Game Starting In ' + i + ' seconds</h2></p>';
 
@@ -53,11 +53,18 @@
         i--;
 
         if (i > 0) {
-            setTimeout(Countdown(i), 100000);
+            setTimeout(Countdown, 1000, i);
+        } else {
+            setTimeout(EmptyFeedback, 1000);
         }
 
     }
 
+    function EmptyFeedback() {
+        $('#feedbackDiv').empty();
+    };
+
+   
     function StartGame(challengeID, connectionIdOpponent) {
 
         $.connection.realtimeHub.server.countdownToGame(10, connectionIdOpponent);
