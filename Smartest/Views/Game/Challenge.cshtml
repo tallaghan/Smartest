@@ -31,12 +31,13 @@
 
     });
 
+    
     function ChallengeAccepted(challengeID, opponent, connectionIdOpponent) {
 
         $("#feedbackDiv").empty();
         $("#feedbackDiv").append("<p>Challenge Accepted by " + opponent + "</p>");
 
-        setTimeout(StartGame, 2000, challengeID, connectionIdOpponent);
+        setTimeout(StartGame, 1000, challengeID, connectionIdOpponent);
 
     }
 
