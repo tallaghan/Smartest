@@ -34,6 +34,7 @@ namespace Smartest.Controllers
 
         }
 
+
         public ActionResult Game()
         {
             return View();

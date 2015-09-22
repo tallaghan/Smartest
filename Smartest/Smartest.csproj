@@ -250,6 +250,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Question.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -263,6 +264,7 @@
     <Compile Include="Repositories\IGameRepository.cs" />
     <Compile Include="Services\ChallengesService.cs" />
     <Compile Include="Services\GamesService.cs" />
+    <Compile Include="Services\QuestionsService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
